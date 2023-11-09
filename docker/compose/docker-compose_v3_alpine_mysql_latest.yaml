@@ -25,11 +25,11 @@ services:
   deploy:
    resources:
     limits:
-      cpus: '0.70'
-      memory: 1G
+      cpus: '0.2'
+      memory: 96M
     reservations:
-      cpus: '0.5'
-      memory: 512M
+      cpus: '0.1'
+      memory: 48M
   env_file:
    - ./env_vars/.env_db_mysql
    - ./env_vars/.env_srv
@@ -89,11 +89,11 @@ services:
   deploy:
    resources:
     limits:
-      cpus: '0.70'
-      memory: 512M
-    reservations:
       cpus: '0.3'
-      memory: 256M
+      memory: 96M
+    reservations:
+      cpus: '0.2'
+      memory: 48M
   env_file:
    - ./env_vars/.env_prx
    - ./env_vars/.env_prx_sqlite3
@@ -139,11 +139,11 @@ services:
   deploy:
    resources:
     limits:
-      cpus: '0.70'
-      memory: 512M
+      cpus: '0.2'
+      memory: 96M
     reservations:
-      cpus: '0.3'
-      memory: 256M
+      cpus: '0.1'
+      memory: 48M
   env_file:
    - ./env_vars/.env_db_mysql_proxy
    - ./env_vars/.env_prx
@@ -191,11 +191,11 @@ services:
   deploy:
    resources:
     limits:
-      cpus: '0.70'
-      memory: 512M
+      cpus: '0.3'
+      memory: 96M
     reservations:
-      cpus: '0.5'
-      memory: 256M
+      cpus: '0.1'
+      memory: 48M
   env_file:
    - ./env_vars/.env_db_mysql
    - ./env_vars/.env_web
@@ -246,11 +246,11 @@ services:
   deploy:
    resources:
     limits:
-      cpus: '0.70'
-      memory: 512M
+      cpus: '0.2'
+      memory: 96M
     reservations:
-      cpus: '0.5'
-      memory: 256M
+      cpus: '0.1'
+      memory: 48M
   env_file:
    - ./env_vars/.env_db_mysql
    - ./env_vars/.env_web
@@ -304,11 +304,11 @@ services:
   deploy:
    resources:
     limits:
-      cpus: '0.2'
-      memory: 128M
+      cpus: '0.1'
+      memory: 48M
     reservations:
       cpus: '0.1'
-      memory: 64M
+      memory: 24M
    mode: global
   env_file:
    - ./env_vars/.env_agent
@@ -337,11 +337,11 @@ services:
   deploy:
    resources:
     limits:
-      cpus: '0.5'
-      memory: 512M
+      cpus: '0.2'
+      memory: 96M
     reservations:
-      cpus: '0.25'
-      memory: 256M
+      cpus: '0.1'
+      memory: 48M
   env_file:
    - ./env_vars/.env_java
   networks:
@@ -368,11 +368,11 @@ services:
   deploy:
    resources:
     limits:
-      cpus: '0.5'
-      memory: 256M
+      cpus: '0.2'
+      memory: 96M
     reservations:
-      cpus: '0.25'
-      memory: 128M
+      cpus: '0.1'
+      memory: 48M
   networks:
    zbx_net_frontend:
     aliases:
@@ -424,8 +424,9 @@ services:
    - mysqld
    - --character-set-server=utf8mb4
    - --collation-server=utf8mb4_bin
-   - --skip-character-set-client-handshake
-   - --default-authentication-plugin=mysql_native_password
+# Only during upgrade from versions prior 6.4
+#   - --log_bin_trust_function_creators=1
+# Use TLS encryption for connections to database
 #   - --require-secure-transport
 #   - --ssl-ca=/run/secrets/root-ca.pem
 #   - --ssl-cert=/run/secrets/server-cert.pem
